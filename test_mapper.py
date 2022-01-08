@@ -1,7 +1,7 @@
 from unittest import TestCase
 import pytest
 
-from mapper import Read, Reference, Mapping, read_fasta
+from mapper import Read, Reference, Mapping, read_fasta, map_reads
 
 
 class MapperTestCase(TestCase):
@@ -60,6 +60,21 @@ class MapperTestCase(TestCase):
         read = reads[12]
         self.assertEqual(Read.__name__, read.__class__.__name__)
         self.assertEqual(read.bases, "GGCAAAAATAATGAATTTAACTTGTCCTTCATGAAAAAATGCCTGTTTTT")
+        
+    @pytest.mark.toplevel
+    def test_map_reads(self):
+        reference = read_fasta("data/fluA.fasta", Reference.__name__)[0]
+        reads = read_fasta("data/fluA_reads.fasta", Read.__name__)
+        mapping = map_reads(reads, reference, 25, 2)
+        mapres = mapping.get_reads_at_position(9)
+        self.assertEqual(len(mapres), 1)
+        self.assertEqual(mapres[0].name, "Read_95")
+        mapres = mapping.get_reads_at_position(109)
+        self.assertEqual(len(mapres), 2)
+        self.assertIn("Read_25", [x.name for x in mapres], "Expected Read_25 to map at position 109")
+        self.assertIn("Read_54", [x.name for x in mapres], "Expected Read_54 to map at position 109")
+        mapres = mapping.get_reads_at_position(177)
+        self.assertEqual(len(mapres), 0)
 
     @pytest.mark.mapping
     def test_mapping(self):
