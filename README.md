@@ -28,7 +28,7 @@ Nach dieser Vorgehensweise würde das Mapping des 3. Reads aus dem obigen Beispi
 
 Zunächst wird das Referenzgenom in 2-mere zerlegt und für jedes 2-mer wird gespeichert, an welchen Positionen im Genom es vorkommt. Dann wird der Read an jeder Position, an der sein erstes 2-mer (TT) vorkommt (4, 8 und 9), mit der Referenz verglichen. An zwei dieser Positionen - 4 und 9 - hat der Read mehr als 1 Unterschied zur Referenzsequenz, diese Positionen werden also verworfen. Nur Position 8 erfüllt alle Kriterien, entsprechend wird diese als Mapping-Position des Reads gespeichert.
 
-Wie Sie erkennen können, wenn Sie diesen Prozess auch mit Read 3 durchführen, funktioniert das Mapping mit dieser Methode nicht, wenn ein Unterschied zum Referenzgenom im seed vorkommt.
+Wie Sie erkennen können, wenn Sie diesen Prozess auch mit Read 4 durchführen, funktioniert das Mapping mit dieser Methode nicht, wenn ein Unterschied zum Referenzgenom im seed vorkommt.
 
 ## Implementation
 
